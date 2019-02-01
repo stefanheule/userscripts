@@ -80,6 +80,7 @@ function copyText() {
     let selection = window.getSelection().toString();
     if (selection != "") {
         totalSel += "\n\n" + selection;
+        window.getSelection().removeAllRanges();
     } else {
         let nr = GM_getValue('nr');
         let me = [nr, document.title, window.location.toString(), totalSel];
