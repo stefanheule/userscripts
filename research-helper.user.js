@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Help with research
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Automate some tedious tasks
 // @author       You
 // @match        https://www.google.com/search*
