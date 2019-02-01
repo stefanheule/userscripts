@@ -100,7 +100,7 @@ let basepage = 0;
 (function() {
     'use strict';
 
-    if (!GM_info.isIncognito {
+    if (!GM_info.isIncognito) {
         let state = get_state();
 
         if (window.location.hostname == "www.google.com") {
