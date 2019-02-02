@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Help with research
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Automate some tedious tasks
 // @author       You
 // @match        https://www.google.com/search*
@@ -35,6 +35,27 @@ function vals() {
     return JSON.parse(GM_getValue('vals', '[]'));
 }
 
+function processRow(row) {
+    const sep = "\t";
+    var finalVal = '';
+    for (var j = 0; j < row.length; j++) {
+        var innerValue = row[j] === null ? '' : row[j].toString();
+        if (row[j] instanceof Date) {
+            innerValue = row[j].toLocaleString();
+        }
+        var result = innerValue.replace(/"/g, '""');
+        result = result.replace(/\t/g, '');
+        if (result.search(/("|,|\n)/g) >= 0) {
+            result = '"' + result + '"';
+        }
+        if (j > 0) {
+            finalVal += sep;
+        }
+        finalVal += result;
+    }
+    return finalVal + '\n';
+}
+
 function csv(v) {
     let r = ""+v;
     r = r.replace('\t', ' ');
@@ -47,7 +68,7 @@ function stop() {
     let x = vals();
     let res = "";
     x.forEach(function (val) {
-        res += csv(val[0]) + "\t" + csv(val[1]) + "\t" + csv(val[2]) + "\t" + csv(val[3]) + "\n";
+        res += processRow(val);
     });
     copyToClipboard(res);
 }
@@ -91,7 +112,7 @@ function copyText() {
 }
 
 function onFocus(){
-  if (get_state() == 1) button.value = "Finish [" + vals().length + "]";
+    if (get_state() == 1) button.value = "Finish [" + vals().length + "]";
 };
 
 var button;
