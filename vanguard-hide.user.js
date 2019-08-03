@@ -3,7 +3,7 @@
 // @require      https://code.jquery.com/jquery-3.2.1.min.js
 // @namespace    me.stefanheule.com
 // @version      1.0
-// @match        https://personal.vanguard.com/my-accounts/account-overview/K/balances
+// @include      *
 // @grant        none
 // ==/UserScript==
 
@@ -21,7 +21,9 @@ function writeBalance(el, val) {
 }
 
 function run(callNr) {
+    console.log('hello');
   if (document.location.href == "https://personal.vanguard.com/my-accounts/account-overview/K/balances") {
+
 
     // find account to hide:
     let links = document.querySelectorAll('.accountInfo > a');
