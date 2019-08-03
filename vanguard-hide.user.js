@@ -40,7 +40,8 @@ function run(callNr) {
       let ignore = balances[idx + 1];
 
       // fix balance
-      let totals = [balances[0], balances[balances.length-1]];
+      let headingTotal = document.querySelector('#sncPortfolioBalance');
+      let totals = [balances[0], balances[balances.length-1], headingTotal];
       let val = readBalance(ignore);
       let totalVal = readBalance(totals[0]);
       for (let total of totals) {
