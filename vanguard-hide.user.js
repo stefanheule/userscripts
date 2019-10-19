@@ -21,9 +21,10 @@ function writeBalance(el, val) {
 }
 
 function run(callNr) {
-    console.log('hello');
-  if (document.location.href == "https://personal.vanguard.com/my-accounts/account-overview/K/balances") {
-
+  if ([
+        "https://personal.vanguard.com/my-accounts/account-overview/K/balances",
+        "https://personal.vanguard.com/web/cf/secure-overview-webapp/",
+      ].includes(document.location.href)) {
 
     // find account to hide:
     let links = document.querySelectorAll('.accountInfo > a');
