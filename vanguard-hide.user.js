@@ -24,6 +24,7 @@ function run(callNr) {
   if ([
         "https://personal.vanguard.com/my-accounts/account-overview/K/balances",
         "https://personal.vanguard.com/web/cf/secure-overview-webapp/",
+        "https://personal.vanguard.com/web/cfv/secure-overview-webapp/",
       ].includes(document.location.href)) {
 
     // find account to hide:
