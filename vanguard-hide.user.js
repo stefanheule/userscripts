@@ -50,6 +50,7 @@ function run(callNr) {
       let totalVal = readBalance(totals[0]);
       for (let total of totals) {
         writeBalance(total, totalVal - val);
+        total.style.color = '#30893b';
       }
 
       // change color
@@ -68,6 +69,51 @@ function run(callNr) {
   }
 }
 
+function run2(callNr) {
+  if ([
+        "https://personal.vanguard.com/us/MyHome",
+      ].includes(document.location.href)) {
+
+    // find account to hide:
+    let links = document.querySelectorAll('.left a');
+    let idx = -1;
+    for (let i = 0; i < links.length; i++) {
+        let link = links[i];
+      let match = /[^0-9]([0-9]*)\*/.exec(link.innerText);
+      if (match && match[1] == "16735878") {
+        idx = i;
+        break;
+      }
+    }
+
+    if (idx >= 0) {
+      let balances = document.querySelectorAll('td.right');
+      let ignore = balances[idx + 2];
+
+      // fix balance
+      let total = document.querySelector('tr:nth-last-child(2) > td:nth-child(2) > b');
+      let val = readBalance(ignore);
+      let totalVal = readBalance(total);
+      writeBalance(total, totalVal - val);
+
+      // change color
+      ignore.style.color = '#ddd';
+      links[idx].style.color = '#ddd';
+      total.style.color = '#30893b';
+
+      return;
+    }
+
+     // run again
+    if (callNr > 0) {
+      setTimeout(function(){
+        run2(callNr - 1);
+      }, 500);
+    }
+  }
+}
+
 $( document ).ready(function() {
   run(10);
+  run2(10);
 });
